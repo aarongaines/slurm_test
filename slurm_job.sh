@@ -15,4 +15,4 @@ uv venv .venv
 uv sync
 
 # Run the training script using uv
-uv venv exec python main.py
+uv run main.py

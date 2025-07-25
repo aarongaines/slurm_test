@@ -11,7 +11,7 @@ model = nn.Linear(1, 1)
 criterion = nn.MSELoss()
 optimizer = optim.SGD(model.parameters(), lr=0.1)
 
-for epoch in range(100):
+for epoch in range(10000):
     optimizer.zero_grad()
     outputs = model(X)
     loss = criterion(outputs, y)
