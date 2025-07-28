@@ -10,6 +10,8 @@
 # Ensure uv is installed (uncomment if needed)
 # pip install uv
 
+export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+
 # Sync the environment from pyproject.toml
 uv venv .venv
 uv sync
