@@ -11,6 +11,11 @@ model = nn.Linear(1, 1)
 criterion = nn.MSELoss()
 optimizer = optim.SGD(model.parameters(), lr=0.1)
 
+model.to(torch.device("cuda" if torch.cuda.is_available() else "cpu"))
+X, y = X.to(model.weight.device), y.to(model.weight.device)
+
+print("Starting training on device:", model.weight.device)
+
 for epoch in range(10000):
     optimizer.zero_grad()
     outputs = model(X)
