@@ -1,29 +1,10 @@
 import torch
-import torch.nn as nn
-import torch.optim as optim
-
-# Simple dataset: y = 2x + 1
-X = torch.linspace(-1, 1, 100).unsqueeze(1)
-y = 2 * X + 1 + 0.2 * torch.randn(X.size())
-
-# Simple linear model
-model = nn.Linear(1, 1)
-criterion = nn.MSELoss()
-optimizer = optim.SGD(model.parameters(), lr=0.1)
-
-model.to(torch.device("cuda" if torch.cuda.is_available() else "cpu"))
-X, y = X.to(model.weight.device), y.to(model.weight.device)
-
-print("Starting training on device:", model.weight.device)
-
-for epoch in range(10000):
-    optimizer.zero_grad()
-    outputs = model(X)
-    loss = criterion(outputs, y)
-    loss.backward()
-    optimizer.step()
-    if (epoch + 1) % 10 == 0:
-        print(f"Epoch [{epoch+1}/100], Loss: {loss.item():.4f}")
-
-print("Training complete.")
-print("Learned parameters:", list(model.parameters()))
+# Check if PyTorch is installed and CUDA is available
+print("Torch:", torch.__version__, " built with CUDA", torch.version.cuda if hasattr(torch, "version") and hasattr(torch.version, "cuda") else "N/A")
+print("is_available:", torch.cuda.is_available())
+if torch.cuda.is_available():
+    print("device 0:", torch.cuda.get_device_name(0))
+    x = torch.randn(4096,4096,device='cuda')
+    y = x @ x
+    torch.cuda.synchronize()
+    print("OK, kernel ran")
